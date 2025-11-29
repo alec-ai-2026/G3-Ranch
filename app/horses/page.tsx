@@ -1,9 +1,17 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 
+type Horse = {
+  id: string;
+  name?: string;
+  imageURL?: string;
+  breed?: string;
+  description?: string;
+};
+
 export default async function HorsesPage() {
   const snapshot = await getDocs(collection(db, "horses"));
-  const horses = snapshot.docs.map((doc) => ({
+  const horses: Horse[] = snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   }));
@@ -29,17 +37,19 @@ export default async function HorsesPage() {
               {horse.imageURL && (
                 <img
                   src={horse.imageURL}
-                  alt={horse.name}
+                  alt={horse.name || "Horse"}
                   className="w-full h-56 object-cover"
                 />
               )}
 
               <div className="p-5">
                 <h2 className="text-2xl font-semibold text-[#f5c781]">
-                  {horse.name}
+                  {horse.name || "Unnamed Horse"}
                 </h2>
 
-                <p className="text-sm text-[#d9b07c]">{horse.breed}</p>
+                {horse.breed && (
+                  <p className="text-sm text-[#d9b07c]">{horse.breed}</p>
+                )}
 
                 {horse.description && (
                   <p className="mt-3 text-[#f2dfc2]">
