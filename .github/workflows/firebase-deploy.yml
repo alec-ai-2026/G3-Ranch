@@ -30,7 +30,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: "projects/56429650388/locations/global/workloadIdentityPools/github-pool/providers/github"
+          workload_identity_provider: "projects/56429650388/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
           service_account: "firebase-deploy@g3-ranching.iam.gserviceaccount.com"
 
       - name: Deploy to Firebase Hosting
