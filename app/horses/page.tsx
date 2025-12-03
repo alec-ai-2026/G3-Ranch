@@ -1,101 +1,85 @@
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../lib/firebase";
+import Image from "next/image";
 
-type Horse = {
-  id: string;
-  name?: string;
-  imageURL?: string;
-  breed?: string;
-  description?: string;
-};
-
-export default async function HorsesPage() {
-  const snapshot = await getDocs(collection(db, "horses"));
-  const horses: Horse[] = snapshot.docs.map((doc) => ({
-    id: doc.id,
-    ...doc.data(),
-  })) as Horse[];
-
-  const isEmpty = horses.length === 0;
+export default function HorsesPage() {
+  // This will eventually come from a CMS or database, but hardcoding is fine for now.
+  const horses = [
+    {
+      name: "Cowboy Drift",
+      year: 2018,
+      sex: "Gelding",
+      img: "/horse1.jpg",
+      desc: "A strong, cowy gelding with a big heart and a lot of try. Perfect for ranch work and intermediate riders.",
+    },
+    {
+      name: "Blondie Rose",
+      year: 2020,
+      sex: "Mare",
+      img: "/horse2.jpg",
+      desc: "Flashy palomino mare with foundation bloodlines. Athletic, willing, and already showing tremendous potential.",
+    },
+    {
+      name: "Rio Smokin Gun",
+      year: 2017,
+      sex: "Stallion",
+      img: "/horse3.jpg",
+      desc: "Powerful young stallion with a calm mind. Throws foals with bone, disposition, and natural athleticism.",
+    },
+  ];
 
   return (
-    <main className="min-h-screen bg-[#1b120c] text-[#fdf4e3]">
-      <section className="max-w-5xl mx-auto px-4 py-16">
-        {/* Heading */}
-        <div className="mb-10 text-center">
-          <p className="text-xs uppercase tracking-[0.25em] text-[#d9b07c] mb-3">
-            Our String
+    <main className="min-h-screen bg-[#1b120c] text-[#fdf4e3] px-4 py-12">
+      <div className="max-w-5xl mx-auto">
+        {/* Page Title */}
+        <section className="text-center mb-12">
+          <p className="text-xs uppercase tracking-[0.25em] text-[#d9b07c]">
+            G3 Ranch Performance Horses
           </p>
-
-          <h1 className="text-4xl md:text-5xl font-bold text-[#f5c781] mb-4">
-            G3 Ranch Horses
+          <h1 className="text-4xl font-semibold text-[#f5c781] mt-2">
+            Our Horses
           </h1>
-
-          <p className="text-sm md:text-base text-[#f2dfc2]/90 max-w-2xl mx-auto">
-            Meet the horses that carry our brand, our work, and our family name.
-            Each one is part of the story we’re building out here.
+          <p className="text-sm text-[#fdf4e3]/70 mt-3 max-w-xl mx-auto">
+            Performance-bred, ranch-raised, and built on faith, family, and
+            foundation bloodlines.
           </p>
-        </div>
+        </section>
 
-        {/* Empty state */}
-        {isEmpty && (
-          <div className="mt-10 border border-[#3b2618] bg-[#140d08] rounded-xl px-6 py-10 text-center shadow-md">
-            <p className="text-lg text-[#f5c781] mb-2">No horses added yet</p>
-            <p className="text-sm text-[#f2dfc2]/80">
-              Once we add horses to the barn, they’ll appear here with photos,
-              bloodlines, and notes from the ranch.
-            </p>
-          </div>
-        )}
-
-        {/* Horse grid */}
-        {!isEmpty && (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            {horses.map((horse) => (
-              <div
-                key={horse.id}
-                className="border border-[#3b2618] bg-[#140d08] rounded-lg overflow-hidden shadow-md flex flex-col"
-              >
-                {/* IMAGE */}
-                {horse.imageURL && (
-                  <div className="relative h-48 w-full overflow-hidden">
-                    <img
-                      src={horse.imageURL}
-                      alt={horse.name || "Horse"}
-                      className="w-full h-full object-cover transition-transform duration-300 ease-out hover:scale-105"
-                    />
-                  </div>
-                )}
-
-                <div className="p-5 flex-1 flex flex-col">
-                  <h2 className="text-xl font-semibold text-[#f5c781]">
-                    {horse.name || "Unnamed Horse"}
-                  </h2>
-
-                  {horse.breed && (
-                    <p className="text-xs uppercase tracking-wide text-[#d9b07c] mt-1">
-                      {horse.breed}
-                    </p>
-                  )}
-
-                  {horse.description && (
-                    <p className="mt-3 text-sm text-[#f2dfc2]/90 line-clamp-4">
-                      {horse.description}
-                    </p>
-                  )}
-
-                  <a
-                    href={`/horses/${horse.id}`}
-                    className="mt-4 inline-block text-sm text-[#f5c781] hover:text-[#f8d395] hover:underline self-start"
-                  >
-                    View Details →
-                  </a>
-                </div>
+        {/* Horses Grid */}
+        <section className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {horses.map((horse, i) => (
+            <div
+              key={i}
+              className="bg-[#24160f] border border-[#3a2518] rounded-xl shadow-md overflow-hidden"
+            >
+              {/* Image */}
+              <div className="relative w-full h-56">
+                <Image
+                  src={horse.img}
+                  alt={horse.name}
+                  fill
+                  className="object-cover rounded-t-xl"
+                />
               </div>
-            ))}
-          </div>
-        )}
-      </section>
-    </main>
-  );
-}
+
+              {/* Content */}
+              <div className="p-4">
+                <h2 className="text-xl font-semibold text-[#f5c781]">
+                  {horse.name}
+                </h2>
+                <p className="text-sm text-[#d9b07c] mt-1">
+                  {horse.year} • {horse.sex}
+                </p>
+                <p className="text-sm text-[#fdf4e3]/80 mt-3">{horse.desc}</p>
+
+                {/* Button */}
+                <button className="mt-4 ranch-btn-outline w-full">
+                  More Info
+                </button>
+              </div>
+            </div>
+          ))}
+        </section>
+
+        {/* Footer Message */}
+        <section className="text-center mt-16">
+          <p className="text-[#fdf4e3]/60 text-sm">
+            Looking for a sale horse? Reac
