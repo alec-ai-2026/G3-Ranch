@@ -1,34 +1,11 @@
 import Image from "next/image";
+import { horses } from "./horsesData";
 
 export default function HorsesPage() {
-  // This will eventually come from a CMS or database, but hardcoding is fine for now.
-  const horses = [
-    {
-      name: "Cowboy Drift",
-      year: 2018,
-      sex: "Gelding",
-      img: "/horse1.jpg",
-      desc: "A strong, cowy gelding with a big heart and a lot of try. Perfect for ranch work and intermediate riders.",
-    },
-    {
-      name: "Blondie Rose",
-      year: 2020,
-      sex: "Mare",
-      img: "/horse2.jpg",
-      desc: "Flashy palomino mare with foundation bloodlines. Athletic, willing, and already showing tremendous potential.",
-    },
-    {
-      name: "Rio Smokin Gun",
-      year: 2017,
-      sex: "Stallion",
-      img: "/horse3.jpg",
-      desc: "Powerful young stallion with a calm mind. Throws foals with bone, disposition, and natural athleticism.",
-    },
-  ];
-
   return (
     <main className="min-h-screen bg-[#1b120c] text-[#fdf4e3] px-4 py-12">
       <div className="max-w-5xl mx-auto">
+        
         {/* Page Title */}
         <section className="text-center mb-12">
           <p className="text-xs uppercase tracking-[0.25em] text-[#d9b07c]">
@@ -70,7 +47,6 @@ export default function HorsesPage() {
                 </p>
                 <p className="text-sm text-[#fdf4e3]/80 mt-3">{horse.desc}</p>
 
-                {/* Button */}
                 <button className="mt-4 ranch-btn-outline w-full">
                   More Info
                 </button>
@@ -79,7 +55,13 @@ export default function HorsesPage() {
           ))}
         </section>
 
-        {/* Footer Message */}
         <section className="text-center mt-16">
           <p className="text-[#fdf4e3]/60 text-sm">
-            Looking for a sale horse? Reac
+            Looking for a sale horse? Reach out for availability and pricing.
+          </p>
+        </section>
+
+      </div>
+    </main>
+  );
+}
