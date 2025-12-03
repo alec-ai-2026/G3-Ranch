@@ -24,7 +24,7 @@ body {
     sans-serif;
 }
 
-/* Links */
+/* Reset anchor styling */
 a {
   text-decoration: none;
 }
@@ -36,7 +36,7 @@ button {
     border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-/* Utility: subtle card look used in panels */
+/* Utility: subtle card look */
 .ranch-card {
   background-color: var(--ranch-bg-soft);
   border: 1px solid var(--ranch-border);
@@ -45,7 +45,7 @@ button {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* Utility: gold text label (good for small headings) */
+/* Utility: gold label */
 .ranch-label {
   font-size: 0.7rem;
   letter-spacing: 0.25em;
@@ -53,23 +53,38 @@ button {
   color: var(--ranch-gold-soft);
 }
 
-/* Utility: primary button */
+/* Primary button */
 .ranch-btn-primary {
-  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
   background-color: var(--ranch-gold);
   color: #2b1a10;
 }
 
-/* Utility: outline button */
+/* Outline button */
 .ranch-btn-outline {
-  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold border;
-  border-color: var(--ranch-gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: 1px solid var(--ranch-gold);
   color: var(--ranch-gold);
 }
 
-/* Utility: danger button (future admin actions) */
+/* Danger button */
 .ranch-btn-danger {
-  @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
   background-color: #a7362d;
   color: #fff;
 }
